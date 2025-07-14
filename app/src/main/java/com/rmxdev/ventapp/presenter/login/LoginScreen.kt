@@ -24,13 +24,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.rmxdev.ventapp.domain.entities.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = koinViewModel(),
-    navigateToHome: () -> Unit
+    navigateToHome: (User) -> Unit
 ) {
 
     val loginState by viewModel.loginState.collectAsState()
@@ -77,7 +78,8 @@ fun LoginScreen(
                 CircularProgressIndicator()
             }
             is LoginState.Success -> {
-                navigateToHome()
+                val user = (loginState as LoginState.Success).user
+                navigateToHome(user)
             }
             is LoginState.Error -> {
                 LaunchedEffect(loginState) {

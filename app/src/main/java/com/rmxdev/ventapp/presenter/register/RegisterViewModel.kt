@@ -19,7 +19,7 @@ class RegisterViewModel(
         viewModelScope.launch {
             val result = useCase(email, name, password, confirmPassword)
             _registerState.value = result.fold(
-                onSuccess = { RegisterState.Success },
+                onSuccess = { user -> RegisterState.Success(user) },
                 onFailure = { RegisterState.Error(it.message ?: "Error al crear el usuario") }
             )
         }

@@ -19,7 +19,7 @@ class LoginViewModel(
             val result = useCase(email, password)
             _loginState.value = result.fold(
                 onSuccess = {
-                    LoginState.Success
+                    LoginState.Success(it)
                 },
                 onFailure = {
                     LoginState.Error(it.message ?: "Usuario o contraseña incorrectos")

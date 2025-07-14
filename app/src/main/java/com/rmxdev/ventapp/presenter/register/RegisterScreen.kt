@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.rmxdev.ventapp.domain.entities.User
 import com.rmxdev.ventapp.presenter.login.LoginState
 import org.koin.androidx.compose.koinViewModel
 
@@ -31,7 +32,7 @@ import org.koin.androidx.compose.koinViewModel
 fun RegisterScreen(
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel = koinViewModel(),
-    navigateToHome: () -> Unit
+    navigateToHome: (User) -> Unit
 ) {
 
     val registerState by viewModel.registerState.collectAsState()
@@ -91,7 +92,8 @@ fun RegisterScreen(
                 CircularProgressIndicator()
             }
             is RegisterState.Success -> {
-                navigateToHome()
+                val user = (registerState as RegisterState.Success).user
+                navigateToHome(user)
             }
             is RegisterState.Error -> {
                 LaunchedEffect(registerState) {

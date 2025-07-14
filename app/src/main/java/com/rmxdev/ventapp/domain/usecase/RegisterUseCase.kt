@@ -7,7 +7,7 @@ import com.rmxdev.ventapp.domain.repository.UserRepository
 class RegisterUseCase(
     private val userRepository: UserRepository
 ) {
-    suspend operator fun invoke(email: String, name: String, password: String, confirmPassword: String): Result<Unit> {
+    suspend operator fun invoke(email: String, name: String, password: String, confirmPassword: String): Result<User> {
         if (password != confirmPassword) {
             return Result.failure(Exception("Las contraseñas no coinciden"))
         }
@@ -26,7 +26,7 @@ class RegisterUseCase(
 
         userRepository.insertUser(newUser)
 
-        return Result.success(Unit)
+        return Result.success(newUser)
 
     }
 }
