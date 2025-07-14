@@ -12,4 +12,5 @@ val appModule = module {
             "database-ventapp"
         ).build()
     }
+    single { get<AppDatabase>().userDao() }
 }
