@@ -1,9 +1,11 @@
 package com.rmxdev.ventapp.di
 
+import com.rmxdev.ventapp.data.repositoryImpl.ArticleRepositoryImpl
 import com.rmxdev.ventapp.data.repositoryImpl.ClientRepositoryImpl
 import com.rmxdev.ventapp.data.repositoryImpl.InvoiceRepositoryImpl
 import com.rmxdev.ventapp.data.repositoryImpl.SaleRepositoryImpl
 import com.rmxdev.ventapp.data.repositoryImpl.UserRepositoryImpl
+import com.rmxdev.ventapp.domain.repository.ArticleRepository
 import com.rmxdev.ventapp.domain.repository.ClientRepository
 import com.rmxdev.ventapp.domain.repository.InvoiceRepository
 import com.rmxdev.ventapp.domain.repository.SaleRepository
@@ -15,4 +17,5 @@ val dataModule = module {
     single<ClientRepository> { ClientRepositoryImpl(get()) }
     single<SaleRepository> { SaleRepositoryImpl(get()) }
     single<InvoiceRepository> { InvoiceRepositoryImpl(get()) }
+    single<ArticleRepository> { ArticleRepositoryImpl(get()) }
 }

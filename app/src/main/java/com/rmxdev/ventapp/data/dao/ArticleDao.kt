@@ -20,4 +20,8 @@ interface ArticleDao {
 
     @Query("SELECT COUNT(*) FROM articles")
     suspend fun getArticlesCount(): Int
+
+    @Query("SELECT * FROM articles")
+    fun getAllArticles(): Flow<List<Article>>
+
 }

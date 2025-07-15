@@ -12,6 +12,6 @@ val presenterModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get(), get(), get()) }
     viewModel { ClientViewModel(get(), get()) }
-    viewModel { SalesViewModel(get(), get(), get()) }
+    viewModel { SalesViewModel(get(), get(), get(), get()) }
     viewModel { SalesReportViewModel(get()) }
 }
