@@ -1,5 +1,6 @@
 package com.rmxdev.ventapp.presenter.sales
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.rmxdev.ventapp.domain.entities.Article
 import com.rmxdev.ventapp.domain.entities.Client
+import com.rmxdev.ventapp.presenter.login.LoginState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -174,6 +176,13 @@ fun SalesScreen(
                 enabled = saleItems.isNotEmpty()
             ) {
                 Text("Confirmar venta")
+            }
+            LaunchedEffect(onSaleConfirmed) {
+                Toast.makeText(
+                    context,
+                    "Venta confirmada",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

@@ -13,6 +13,7 @@ import com.rmxdev.ventapp.presenter.clients.ClientScreen
 import com.rmxdev.ventapp.presenter.home.HomeScreen
 import com.rmxdev.ventapp.presenter.initial.InitialScreen
 import com.rmxdev.ventapp.presenter.login.LoginScreen
+import com.rmxdev.ventapp.presenter.map.MapsScreen
 import com.rmxdev.ventapp.presenter.register.RegisterScreen
 import com.rmxdev.ventapp.presenter.reports.SalesReportScreen
 import com.rmxdev.ventapp.presenter.sales.SalesScreen
@@ -82,7 +83,7 @@ fun NavGraphBuilder.mainGraph(navController: NavController, currentUser: Mutable
             client?.let {
                 SalesScreen(
                     client = it,
-                    sellerName = "Vendedor X",
+                    sellerName = currentUser.value?.name ?: "Desconocido",
                     onSaleConfirmed = { navController.navigate("clients") }
                 )
             }
@@ -90,5 +91,8 @@ fun NavGraphBuilder.mainGraph(navController: NavController, currentUser: Mutable
     }
     composable("reports") {
         SalesReportScreen()
+    }
+    composable("map") {
+        MapsScreen()
     }
 }

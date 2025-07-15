@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "28342369621",
+    "project_id": "ventapp-587ae",
+    "storage_bucket": "ventapp-587ae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28342369621:android:0c181db9f2802e5d4a43dc",
+        "android_client_info": {
+          "package_name": "com.rmxdev.ventapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmDG0H8NHFpuL0qSa_T7r__abHvuvJoOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

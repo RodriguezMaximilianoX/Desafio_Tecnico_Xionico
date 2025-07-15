@@ -2,6 +2,7 @@ package com.rmxdev.ventapp.di
 
 import com.rmxdev.ventapp.presenter.clients.ClientViewModel
 import com.rmxdev.ventapp.presenter.login.LoginViewModel
+import com.rmxdev.ventapp.presenter.map.MapsViewModel
 import com.rmxdev.ventapp.presenter.register.RegisterViewModel
 import com.rmxdev.ventapp.presenter.reports.SalesReportViewModel
 import com.rmxdev.ventapp.presenter.sales.SalesViewModel
@@ -14,4 +15,5 @@ val presenterModule = module {
     viewModel { ClientViewModel(get(), get()) }
     viewModel { SalesViewModel(get(), get(), get(), get()) }
     viewModel { SalesReportViewModel(get()) }
+    viewModel { MapsViewModel(get(), get()) }
 }
