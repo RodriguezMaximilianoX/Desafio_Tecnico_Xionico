@@ -45,6 +45,8 @@ fun AppDrawer(
         DrawerItem("Inicio") { onItemClick("home") }
         DrawerLabel(userName)
 
+        DrawerItem("Clientes") { onItemClick("clients") }
+
         // Reportes con submenú
         DrawerExpandable(
             title = "Reportes",

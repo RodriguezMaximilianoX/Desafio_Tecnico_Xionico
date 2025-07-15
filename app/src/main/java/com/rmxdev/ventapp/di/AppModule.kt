@@ -10,7 +10,11 @@ val appModule = module {
             get(),
             AppDatabase::class.java,
             "database-ventapp"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
     single { get<AppDatabase>().userDao() }
+    single { get<AppDatabase>().clientDao() }
+    single { get<AppDatabase>().articleDao() }
 }

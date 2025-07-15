@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.rmxdev.ventapp.domain.entities.User
+import com.rmxdev.ventapp.presenter.clients.ClientScreen
 import com.rmxdev.ventapp.presenter.home.HomeScreen
 import com.rmxdev.ventapp.presenter.initial.InitialScreen
 import com.rmxdev.ventapp.presenter.login.LoginScreen
@@ -58,5 +59,8 @@ fun NavGraphBuilder.mainGraph(navController: NavController, currentUser: Mutable
                 }
             }
         )
+    }
+    composable("clients") {
+        ClientScreen()
     }
 }
