@@ -17,6 +17,7 @@ import com.rmxdev.ventapp.presenter.map.MapsScreen
 import com.rmxdev.ventapp.presenter.register.RegisterScreen
 import com.rmxdev.ventapp.presenter.reports.SalesReportScreen
 import com.rmxdev.ventapp.presenter.sales.SalesScreen
+import com.rmxdev.ventapp.presenter.share.ShareScreen
 import org.koin.compose.koinInject
 
 fun NavGraphBuilder.mainGraph(navController: NavController, currentUser: MutableState<User?>) {
@@ -94,5 +95,8 @@ fun NavGraphBuilder.mainGraph(navController: NavController, currentUser: Mutable
     }
     composable("map") {
         MapsScreen()
+    }
+    composable("share") {
+        ShareScreen()
     }
 }
