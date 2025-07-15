@@ -5,87 +5,74 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.produceState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.rmxdev.ventapp.core.shareFile
+import androidx.compose.ui.unit.sp
+import com.google.gson.Gson
+import com.rmxdev.ventapp.core.shareJsonFile
+import com.rmxdev.ventapp.domain.entities.Client
+import com.rmxdev.ventapp.domain.entities.Invoice
+import com.rmxdev.ventapp.domain.repository.ClientRepository
+import com.rmxdev.ventapp.domain.repository.InvoiceRepository
+import kotlinx.coroutines.flow.first
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShareScreen(
     modifier: Modifier = Modifier,
-    viewModel: ShareViewModel = koinViewModel()
+    viewModel: ShareViewModel = koinViewModel(),
 ) {
 
     val context = LocalContext.current
-    var selectedReport by rememberSaveable { mutableStateOf<String?>(null) }
+    val clientRepository: ClientRepository = koinInject()
+    val invoiceRepository: InvoiceRepository = koinInject()
+
+    val clients by produceState(initialValue = emptyList<Client>()) {
+        value = clientRepository.getAllClients().first()
+    }
+
+    val invoices by produceState(initialValue = emptyList<Invoice>()) {
+        value = invoiceRepository.getAllInvoices().first()
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize()
     ) { padding ->
-        Column(Modifier.padding(padding)) {
-            Button(onClick = { selectedReport = "clients" }) {
-                Text("Exportar clientes")
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+            Text("Compartir reportes", fontSize = 30.sp, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.weight(2f))
+            Button(onClick = {
+                val json = Gson().toJson(clients)
+                context.shareJsonFile("clientes.json", json, "Listado de Clientes")
+            }) {
+                Text("Compartir Clientes")
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(onClick = { selectedReport = "invoices" }) {
-                Text("Exportar ventas")
+            Button(onClick = {
+                val json = Gson().toJson(invoices)
+                context.shareJsonFile("ventas.json", json, "Reporte de Ventas")
+            }) {
+                Text("Compartir Ventas")
             }
-        }
-
-        selectedReport?.let { report ->
-            AlertDialog(
-                onDismissRequest = { selectedReport = null },
-                title = { Text("Compartir por") },
-                confirmButton = {
-                    Column(Modifier.padding(16.dp)) {
-                        Button(onClick = {
-                            when (report) {
-                                "clients" -> viewModel.exportClients {
-                                    context.shareFile(it, "application/json")
-                                }
-
-                                "invoices" -> viewModel.exportInvoices {
-                                    context.shareFile(it, "application/json")
-                                }
-                            }
-                            selectedReport = null
-                        }) {
-                            Text("Email")
-                        }
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Button(onClick = {
-                            when (report) {
-                                "clients" -> viewModel.exportClients {
-                                    context.shareFile(it, "application/json", "com.whatsapp")
-                                }
-
-                                "invoices" -> viewModel.exportInvoices {
-                                    context.shareFile(it, "application/json", "com.whatsapp")
-                                }
-                            }
-                            selectedReport = null
-                        }) {
-                            Text("WhatsApp")
-                        }
-                    }
-                }
-            )
+            Spacer(modifier = Modifier.weight(1f))
         }
 
     }
