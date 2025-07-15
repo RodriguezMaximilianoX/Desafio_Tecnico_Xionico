@@ -27,4 +27,7 @@ interface ClientDao {
 
     @Query("SELECT COUNT(*) FROM clients")
     suspend fun getClientsCount(): Int
+
+    @Query("SELECT * FROM clients WHERE id = :id")
+    suspend fun getClientById(id: Int): Client?
 }

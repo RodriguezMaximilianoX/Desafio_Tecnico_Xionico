@@ -1,5 +1,6 @@
 package com.rmxdev.ventapp.presenter.clients
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,12 +23,14 @@ import com.rmxdev.ventapp.domain.entities.Client
 @Composable
 fun ClientItem(
     modifier: Modifier = Modifier,
-    client: Client
+    client: Client,
+    onClick: (Client) -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick(client) },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(

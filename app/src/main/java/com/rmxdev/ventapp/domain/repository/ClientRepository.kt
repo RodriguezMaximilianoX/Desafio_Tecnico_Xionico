@@ -9,4 +9,5 @@ interface ClientRepository {
     suspend fun insertClient(client: Client)
     suspend fun insertClients(clients: List<Client>)
     suspend fun markClientAsSold(clientId: Int)
+    suspend fun getClientById(id: Int): Client?
 }

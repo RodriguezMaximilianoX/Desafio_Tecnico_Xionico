@@ -20,12 +20,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.rmxdev.ventapp.domain.entities.Client
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ClientScreen(
     modifier: Modifier = Modifier,
-    viewModel: ClientViewModel = koinViewModel()
+    viewModel: ClientViewModel = koinViewModel(),
+    onClientSelected: (Client) -> Unit
 ) {
     val searchQuery by viewModel.searchQuery.collectAsState()
     val clients by viewModel.clients.collectAsState()
@@ -54,11 +56,13 @@ fun ClientScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(clients) { client ->
-                    ClientItem(client = client)
+                    ClientItem(
+                        client = client,
+                        onClick = onClientSelected
+                    )
                     Divider()
                 }
             }
         }
     }
-
 }

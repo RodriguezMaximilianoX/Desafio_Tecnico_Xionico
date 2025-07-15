@@ -28,4 +28,8 @@ class ClientRepositoryImpl(
         clientDao.markClientAsSold(clientId)
     }
 
+    override suspend fun getClientById(id: Int): Client? {
+        return clientDao.getClientById(id)
+    }
+
 }
